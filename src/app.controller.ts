@@ -18,4 +18,12 @@ export class AppController {
     console.log(type);
     return this.appService.getAllReports(reportType);
   }
+
+  @Get(':id')
+  getReportById(@Param('type') type: string, @Param('id') id: string) {
+    const reportType =
+      type === 'income' ? ReportType.INCOME : ReportType.EXPENSE;
+
+    return this.appService.getReportById(reportType, id);
+  }
 }
