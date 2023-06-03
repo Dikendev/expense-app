@@ -1,12 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+} from '@nestjs/common';
+import { ReportType } from './data';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('report/:type')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getAllReports(@Param('type') type: string) {
+    const reportType =
+      type === 'income' ? ReportType.INCOME : ReportType.EXPENSE;
+
+    console.log(type);
+    return this.appService.getAllReports(reportType);
   }
 }
