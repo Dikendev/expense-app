@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ReportType } from './data';
 import { AppService } from './app.service';
 
@@ -32,5 +41,17 @@ export class AppController {
       type === 'income' ? ReportType.INCOME : ReportType.EXPENSE;
 
     return this.appService.createReport(reportType, { amount, source });
+  }
+
+  @Put(':id')
+  updateReport(
+    @Param('type') type: string,
+    @Param('id') id: string,
+    @Body() body: { amount: number; source: string },
+  ) {
+    const reportType =
+      type === 'income' ? ReportType.INCOME : ReportType.EXPENSE;
+
+    return this.appService.updateReport(reportType, id, body);
   }
 }
