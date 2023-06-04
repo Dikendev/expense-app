@@ -54,4 +54,10 @@ export class AppController {
 
     return this.appService.updateReport(reportType, id, body);
   }
+
+  @HttpCode(204)
+  @Delete(':id')
+  deleteReport(@Param('id') id: string) {
+    return this.appService.deleteReport(id);
+  }
 }
